@@ -1,5 +1,6 @@
 import os
 import os.path as osp
+import shutil
 import sys
 from pathlib import Path
 
@@ -46,7 +47,9 @@ def mkdir_or_exist(dir_name, mode=0o777):
 def symlink(src, dst, overwrite=True, **kwargs):
     if os.path.lexists(dst) and overwrite:
         os.remove(dst)
-    os.symlink(src, dst, **kwargs)
+    # Does not work in colab.
+    #os.symlink(src, dst, **kwargs)
+    shutil.copy(src, dst)
 
 
 def _scandir_py35(dir_path, suffix=None):
